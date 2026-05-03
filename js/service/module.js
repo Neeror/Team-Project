@@ -1,3 +1,4 @@
-import './js/api/api.js';
+import '../ui/script.js';
+import '../api/api.js';
 
-import './js/ui/script.js';
+
