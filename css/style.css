@@ -3,7 +3,13 @@ main {
 }
 .planisMovieMain{
     color: white;
-    
+    z-index: 2;
+}
+.planisMovieText{
+     z-index: 2;
+}
+.hero-btns{
+    z-index: 2;
 }
 .hero-slider {
     position: relative;
@@ -30,10 +36,34 @@ main {
     margin: 0 auto;
     padding: 0 40px 40px 40px;
     display: flex;
-    justify-content: space-between; 
+ justify-content: space-between; 
     align-items: flex-end; 
+
 }
 
+.topbottomn{
+   position: absolute;
+   left: 10px;
+   bottom: 37px;
+    opacity: 0.1;
+}
+.top-line{
+    border: 1px solid white;
+    width:10px;
+     z-index: 1;
+}
+.left-line{
+    border: 1px solid white;
+  height: 140px;
+  width: 0px;
+  z-index: 1;
+}
+.bottomn-top-line{
+     border: 1px solid white;
+       width:10px;
+     z-index: 1;
+
+}
 .hero-content {
     margin-bottom: 20px;
     color: white;
@@ -62,4 +92,7 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.red-line{
+    border: 1px solid red;
 }
