@@ -77,3 +77,17 @@ export async function getMovieTrailer(id) {
         return null;
     }
 }
+export async function searchMovies(query) {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=uk-UA`
+        );
+
+        const data = await response.json();
+
+        return data.results || [];
+    } catch (error) {
+        console.error("Помилка пошуку:", error);
+        return [];
+    }
+}
