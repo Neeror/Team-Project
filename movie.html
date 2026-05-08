@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/movie.css">
+</head>
+<body>
+    <main>
+        <div class="movie-details" id="movie-content">
+            <p>Завантаження...</p>
+        </div>
+    </main>
+    <script type="module">
+        import { getMovieDetails, IMG_URL } from './js/api/api.js';
+    
+        const params = new URLSearchParams(window.location.search);
+        const movieId = params.get('id');
+        const content = document.getElementById('movie-content');
+    
+        async function init() {
+            if (!movieId) {
+                content.innerHTML = "<h1>Помилка: ID фільму не знайдено в посиланні</h1>";
+                return;
+            }
+    
+            try {
+                const movie = await getMovieDetails(movieId);
+                
+                if (!movie) {
+                    content.innerHTML = "<h1>Не вдалося завантажити дані про фільм</h1>";
+                    return;
+                }
+    
+                content.innerHTML = `
+    <div class="movie-poster">
+        <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
+    </div>
+    <div class="movie-info">
+        <a href="index.html" class="back-btn" style="color: red; text-decoration: none; font-size: 1.2rem;">← Назад до каталогу</a>
+        
+        <h1 style="margin-top: 20px;">${movie.title}</h1>
+        <p style="font-style: italic; color: #aaa;">${movie.tagline || ""}</p>
+        <p><strong>Рейтинг:</strong> ⭐ ${movie.vote_average.toFixed(1)}</p>
+        <p><strong>Рік:</strong> ${movie.release_date.split('-')[0]}</p>
+        
+        <h3>Про що фільм:</h3>
+        <p>${movie.overview || "Опис українською мовою скоро з'явиться."}</p>
+
+       
+        <div class="watch-section" style="margin-top: 40px;">
+            <h2 style="color: #ff0000; margin-bottom: 20px;">Дивитися онлайн:</h2>
+            <div class="player-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border: 2px solid #333; border-radius: 10px;">
+                <iframe 
+                     src="https://vidsrc.me/embed/movie/${movie.id}"
+                     allowfullscreen
+                     allow="autoplay; fullscreen"
+                     referrerpolicy="origin"
+                     style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;">
+                 </iframe>
+            </div>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">* Плеєр може містити рекламу від сторонніх сервісів.</p>
+        </div>
+    </div>
+`;
+            } catch (error) {
+                console.error(error);
+                content.innerHTML = `<h1>Сталася помилка: ${error.message}</h1>`;
+            }
+        }
+    
+        init();
+    </script>
+</body>
+</html>

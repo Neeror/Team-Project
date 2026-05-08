@@ -1,0 +1,22 @@
+.movie-details {
+    padding: 50px 40px;
+    color: white;
+    display: flex;
+    gap: 40px;
+    background: #000;
+    min-height: 100vh;
+}
+.movie-poster img {
+    width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,0,0,0.3);
+}
+.movie-info h1 { font-size: 3rem; margin-bottom: 20px; }
+.movie-info p { font-size: 1.2rem; line-height: 1.6; color: #ccc; }
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #ff0000;
+    text-decoration: none;
+    font-weight: bold;
+}
